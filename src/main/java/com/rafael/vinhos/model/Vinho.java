@@ -3,6 +3,8 @@ package com.rafael.vinhos.model;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ public class Vinho {
 	@NotBlank
 	private String nome;
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	private TipoVinho tipo;
 	@NotNull
 	@NumberFormat(pattern = "#,##0.00")

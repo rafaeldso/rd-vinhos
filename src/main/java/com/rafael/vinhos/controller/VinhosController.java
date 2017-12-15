@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,23 @@ public class VinhosController {
 		model.addObject(vinho);
 		model.addObject("tipos", TipoVinho.values());
 		return model;
+	}
+	
+	@DeleteMapping("/{id}")
+	public String remover(@PathVariable Long id, RedirectAttributes attributes){
+		vinhos.delete(id);
+		attributes.addFlashAttribute("mensagem", "Vinho removido com sucesso!");
+		return "redirect:/vinhos";
+		
+	}
+	
+	@GetMapping
+	public ModelAndView listar(){
+		ModelAndView model = new ModelAndView("vinhos/lista-vinhos");
+		model.addObject("vinhos", vinhos.findAll());
+		
+		return model;
+		
 	}
 
 	@PostMapping("/novo")
